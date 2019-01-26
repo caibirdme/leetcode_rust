@@ -4,7 +4,7 @@ mod largest_kth_element;
 mod top_k_frequent_element;
 mod impl_trie;
 mod isomorphic_strings;
-
+mod word_search_two;
 
 #[cfg(test)]
 mod tests {
