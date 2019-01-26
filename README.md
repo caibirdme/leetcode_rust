@@ -1,7 +1,10 @@
-just for practicing Rust
+用leetcode给Rust练手
 
-### Why Choose Leetcode
+最近发现leetcode支持了rust，感觉hin兴奋，终于有个平台可以让我练练手了。
+之前都是自己xjb写，写完也不知道对不对，而且姿势非常不雅，leetcode的好处是
+我AC一道题之后可以看到别人提的代码。那真是极好的！我自己写的太C-style了，
+学习大佬的函数式写法，果然流弊。不过函数式也就自己玩玩，真要在生产项目里
+这么写就煞笔了。
 
-> It supports rust lang and it's fun! Those problems always require people to implement
-data structures such as linkedlist,heap,graph or tree etc, which are also the most
-difficult part of Rust due to its ownership.
+Rust是门好语言，但是现在邪教太多了，感觉都想把C++那些feature复刻过来，
+如果被他们得逞，那就夭寿啦！
