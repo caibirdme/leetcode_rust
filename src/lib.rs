@@ -5,6 +5,7 @@ mod top_k_frequent_element;
 mod impl_trie;
 mod isomorphic_strings;
 mod word_search_two;
+mod word_dictionary;
 
 #[cfg(test)]
 mod tests {
