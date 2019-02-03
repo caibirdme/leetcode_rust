@@ -6,6 +6,7 @@ mod impl_trie;
 mod isomorphic_strings;
 mod word_search_two;
 mod word_dictionary;
+mod house_rob_two;
 
 #[cfg(test)]
 mod tests {
