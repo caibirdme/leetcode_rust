@@ -7,6 +7,7 @@ mod isomorphic_strings;
 mod word_search_two;
 mod word_dictionary;
 mod house_rob_two;
+mod shortest_palindrome;
 
 #[cfg(test)]
 mod tests {
