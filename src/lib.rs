@@ -8,6 +8,7 @@ mod word_search_two;
 mod word_dictionary;
 mod house_rob_two;
 mod shortest_palindrome;
+mod combination_sum_3;
 
 #[cfg(test)]
 mod tests {
