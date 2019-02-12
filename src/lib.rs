@@ -9,6 +9,9 @@ mod word_dictionary;
 mod skyline;
 mod contains_duplicate;
 mod duplicate_two;
+mod house_rob_two;
+mod shortest_palindrome;
+mod combination_sum_3;
 
 #[cfg(test)]
 mod tests {
