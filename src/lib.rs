@@ -12,6 +12,9 @@ mod duplicate_two;
 mod house_rob_two;
 mod shortest_palindrome;
 mod combination_sum_3;
+mod maximal_square;
+mod rectangle_area;
+mod impl_stack_by_queue;
 
 #[cfg(test)]
 mod tests {
