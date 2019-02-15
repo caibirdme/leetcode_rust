@@ -17,6 +17,8 @@ mod rectangle_area;
 mod impl_stack_by_queue;
 mod basic_calc_2;
 mod summary_range;
+mod majority_element_2;
+mod power_of_2;
 
 #[cfg(test)]
 mod tests {
