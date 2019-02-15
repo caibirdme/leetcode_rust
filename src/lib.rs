@@ -15,6 +15,7 @@ mod combination_sum_3;
 mod maximal_square;
 mod rectangle_area;
 mod impl_stack_by_queue;
+mod basic_calc_2;
 
 #[cfg(test)]
 mod tests {
