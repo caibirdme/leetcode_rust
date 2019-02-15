@@ -16,6 +16,7 @@ mod maximal_square;
 mod rectangle_area;
 mod impl_stack_by_queue;
 mod basic_calc_2;
+mod summary_range;
 
 #[cfg(test)]
 mod tests {
