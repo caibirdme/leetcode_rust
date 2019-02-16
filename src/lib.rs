@@ -19,6 +19,7 @@ mod basic_calc_2;
 mod summary_range;
 mod majority_element_2;
 mod power_of_2;
+mod palindrome_linkedlist;
 
 #[cfg(test)]
 mod tests {
