@@ -20,6 +20,7 @@ mod summary_range;
 mod majority_element_2;
 mod power_of_2;
 mod palindrome_linkedlist;
+mod prob_238;
 
 #[cfg(test)]
 mod tests {
