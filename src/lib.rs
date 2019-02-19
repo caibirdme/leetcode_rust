@@ -22,6 +22,7 @@ mod power_of_2;
 mod palindrome_linkedlist;
 mod prob_995;
 mod prob_241;
+mod prob_264;
 
 #[cfg(test)]
 mod tests {
