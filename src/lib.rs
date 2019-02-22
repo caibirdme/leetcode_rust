@@ -23,6 +23,8 @@ mod palindrome_linkedlist;
 mod prob_995;
 mod prob_241;
 mod prob_264;
+mod prob_260;
+mod prob_273;
 
 #[cfg(test)]
 mod tests {
