@@ -52,8 +52,10 @@ mod prob_327;
 mod prob_328;
 mod prob_329;
 mod prob_330;
+mod prob_331;
 mod prob_342;
 mod prob_1002;
+mod prob_1003;
 
 
 #[cfg(test)]
