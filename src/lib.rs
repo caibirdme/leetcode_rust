@@ -55,7 +55,11 @@ mod prob_330;
 mod prob_331;
 mod prob_332;
 mod prob_334;
+mod prob_337;
 mod prob_342;
+mod prob_343;
+mod prob_345;
+mod prob_349;
 mod prob_1002;
 mod prob_1003;
 
