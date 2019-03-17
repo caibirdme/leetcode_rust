@@ -70,6 +70,8 @@ mod prob_367;
 mod prob_368;
 mod prob_372;
 mod prob_373;
+mod prob_375;
+mod prob_376;
 mod prob_1002;
 mod prob_1003;
 
