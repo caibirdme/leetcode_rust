@@ -14,8 +14,9 @@ impl Solution {
         let mut ans = Pair::new(matrix[0][0],0,0);
         for _ in 0..k {
             ans = pq.pop().unwrap().0;
-            if ans.2+1 < n {
-                pq.push(Reverse(Pair::new(matrix[ans.1][ans.2+1], ans.1, ans.2+1)));
+            let next_idx = ans.2+1;
+            if next_idx < n {
+                pq.push(Reverse(Pair::new(matrix[ans.1][next_idx], ans.1, next_idx)));
             }
         }
         ans.0
