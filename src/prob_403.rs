@@ -19,7 +19,6 @@ impl Solution {
         queue.push_back(1);
         while !queue.is_empty() {
             let cur = queue.pop_front().unwrap();
-
             for s in steps.remove(&cur).unwrap() {
                 for i in -1..=1 {
                     let next = cur+s+i;
