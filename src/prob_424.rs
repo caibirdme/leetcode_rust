@@ -16,20 +16,14 @@ impl Solution {
         let mut count = [0; 26];
         let (mut left, mut right) = (0,0);
         let mut ans = 1;
+        let mut cur_max = 0;
         let s = s.as_bytes();
         while right < n {
             count[pos!(s[right])] += 1;
-            loop {
-                let mut cur = count[0];
-                for i in 1..26 {
-                    cur = max(count[i], cur);
-                }
-                if right-left+1 > k+cur {
-                    count[pos!(s[left])] -= 1;
-                    left += 1;
-                } else {
-                    break;
-                }
+            cur_max = max(cur_max, count[pos!(s[right])]);
+            while right-left+1>cur_max+k {
+                count[pos!(s[left])] -= 1;
+                left+=1;
             }
             ans = max(ans, right-left+1);
             right+=1;
