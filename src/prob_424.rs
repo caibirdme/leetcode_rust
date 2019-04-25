@@ -53,21 +53,3 @@ impl Solution {
 }
 
 struct Solution;
-
-#[cfg(test)]
-mod tests {
-    use super::Solution;
-    #[test]
-    fn test_character_replacement() {
-        let test_cases = vec![
-            ("AAAA", 2, 4),
-            ("AABABBA", 1, 4),
-            ("ABAB", 2, 4),
-            ("AACDBAB", 3, 6),
-            ("AACDBBA", 3, 5),
-        ];
-        for (s, k, expect) in test_cases {
-            assert_eq!(expect, Solution::character_replacement(s.clone().to_string(), k), "s: {}, k:{}", s, k);
-        }
-    }
-}
