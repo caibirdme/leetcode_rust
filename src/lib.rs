@@ -23,6 +23,7 @@ mod palindrome_linkedlist;
 mod prob_16;
 mod prob_21;
 mod prob_33;
+mod prob_35;
 mod prob_38;
 mod prob_39;
 mod prob_46;
