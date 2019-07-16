@@ -22,6 +22,7 @@ mod power_of_2;
 mod palindrome_linkedlist;
 mod prob_16;
 mod prob_21;
+mod prob_31;
 mod prob_33;
 mod prob_35;
 mod prob_38;
