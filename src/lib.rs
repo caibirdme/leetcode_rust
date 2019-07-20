@@ -36,6 +36,8 @@ mod prob_49;
 mod prob_50;
 mod prob_51;
 mod prob_52;
+mod prob_58;
+mod prob_62;
 mod prob_131;
 mod prob_995;
 mod prob_241;
