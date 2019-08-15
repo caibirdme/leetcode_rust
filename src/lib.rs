@@ -65,6 +65,8 @@ mod prob_144;
 mod prob_149;
 mod prob_173;
 mod prob_220;
+mod prob_230;
+mod prob_232;
 mod prob_241;
 mod prob_264;
 mod prob_260;
