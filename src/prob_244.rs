@@ -42,9 +42,3 @@ impl WordDistance {
         ans as i32
     }
 }
-
-/**
- * Your WordDistance object will be instantiated and called as such:
- * let obj = WordDistance::new(words);
- * let ret_1: i32 = obj.shortest(word1, word2);
- */
