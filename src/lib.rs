@@ -91,6 +91,7 @@ mod prob_265;
 mod prob_266;
 mod prob_267;
 mod prob_269;
+mod prob_272;
 mod prob_273;
 mod prob_274;
 mod prob_275;
