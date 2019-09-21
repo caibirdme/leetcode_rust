@@ -109,6 +109,7 @@ mod prob_298;
 mod prob_299;
 mod prob_301;
 mod prob_302;
+mod prob_305;
 mod prob_306;
 mod prob_309;
 mod prob_310;
