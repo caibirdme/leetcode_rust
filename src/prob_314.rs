@@ -33,7 +33,7 @@ impl Solution {
         for k in indices {
             let mut v = hash.get(&k).unwrap().clone();
             v.sort_by(|&(_,x),&(_,y)| x.cmp(&y));
-            ans.push(v.into_iter().map(|(&v,_)| v).collect());
+            ans.push(v.into_iter().map(|(v,_)| v).collect());
         }
         ans
     }
