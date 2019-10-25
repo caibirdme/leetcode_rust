@@ -136,6 +136,7 @@ mod prob_331;
 mod prob_332;
 mod prob_333;
 mod prob_334;
+mod prob_336;
 mod prob_337;
 mod prob_342;
 mod prob_343;
