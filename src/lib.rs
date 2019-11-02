@@ -208,6 +208,8 @@ mod prob_1003;
 mod prob_1228;
 mod prob_1229;
 mod prob_1230;
+mod prob_5096;
+mod prob_5098;
 mod prob_5230;
 mod prob_5231;
 mod prob_5232;

@@ -34,9 +34,3 @@ impl Logger {
         false
     }
 }
-
-/**
- * Your Logger object will be instantiated and called as such:
- * let obj = Logger::new();
- * let ret_1: bool = obj.should_print_message(timestamp, message);
- */
