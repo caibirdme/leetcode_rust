@@ -151,6 +151,7 @@ mod prob_355;
 mod prob_356;
 mod prob_357;
 mod prob_359;
+mod prob_360;
 mod prob_363;
 mod prob_365;
 mod prob_367;
