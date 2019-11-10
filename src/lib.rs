@@ -148,6 +148,7 @@ mod prob_351;
 mod prob_352;
 mod prob_354;
 mod prob_355;
+mod prob_356;
 mod prob_357;
 mod prob_359;
 mod prob_363;
@@ -224,6 +225,9 @@ mod prob_5247;
 mod prob_5248;
 mod prob_5249;
 mod prob_5250;
+mod prob_5256;
+mod prob_5257;
+mod prob_5258;
 
 #[cfg(test)]
 mod tests {
