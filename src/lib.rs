@@ -162,12 +162,14 @@ mod prob_366;
 mod prob_367;
 mod prob_368;
 mod prob_369;
+mod prob_370;
 mod prob_372;
 mod prob_373;
 mod prob_375;
 mod prob_376;
 mod prob_377;
 mod prob_378;
+mod prob_379;
 mod prob_383;
 mod prob_385;
 mod prob_386;
@@ -240,6 +242,5 @@ mod prob_5258;
 mod tests {
     #[test]
     fn it_works() {
-        assert_eq!(2 + 2, 4);
     }
 }
