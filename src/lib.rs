@@ -170,6 +170,9 @@ mod prob_376;
 mod prob_377;
 mod prob_378;
 mod prob_379;
+mod prob_380;
+mod prob_381;
+mod prob_382;
 mod prob_383;
 mod prob_385;
 mod prob_386;
@@ -237,10 +240,15 @@ mod prob_5250;
 mod prob_5256;
 mod prob_5257;
 mod prob_5258;
+mod prob_5264;
+mod prob_5265;
+mod prob_5266;
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn it_works() {
+        assert_eq!(0, -3%3);
+        assert_eq!(-1, -1%3);
     }
 }
