@@ -18,20 +18,14 @@ impl Solution {
         while j > i && nums[j] <= piv {
             j-=1;
         }
-        let mut ans = nums[..i].to_vec();
-        ans.push(nums[j]);
-        let mut k = n;
-        while k > j {
-            ans.push(nums[k]);
-            k-=1;
+        nums.swap(i, j);
+        i += 1;
+        j = n;
+        while i < j {
+            nums.swap(i,j);
+            i+=1;
+            j-=1;
         }
-        ans.push(piv);
-        k = j-1;
-        while k > i {
-            ans.push(nums[k]);
-            k-=1;
-        }
-        *nums = ans;
     }
 }
 
