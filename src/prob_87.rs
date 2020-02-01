@@ -51,7 +51,11 @@ mod tests {
             ("abcde", "caebd", false),
         ];
         for (s1, s2, ok) in test_cases {
-            assert_eq!(Solution::is_scramble(s1.to_string(), s2.to_string()), ok, "s1: {}, s2: {}",s1, s2);
+            assert_eq!(
+                Solution::is_scramble(s1.to_string(), s2.to_string()),
+                ok,
+                "s1: {}, s2: {}",s1, s2,
+            );
         }
     }
 }

@@ -35,6 +35,23 @@ impl Solution {
         f[i][j] = Some(ans);
         ans
     }
+    pub fn fast_dp(mut nums: Vec<i32>) -> i32 {
+        let mut arr = vec![1];
+        arr.append(&mut nums);
+        arr.push(1);
+        let n = arr.len();
+        let mut f = vec![vec![0; n]; n];
+        for len in 2..n {
+            for i in 0..n-len {
+                let j = i+len;
+                let t = arr[i]*arr[j];
+                for k in i+1..j {
+                    f[i][j] = f[i][j].max(f[i][k]+f[k][j]+t*arr[k]);
+                }
+            }
+        }
+        f[0][n-1]
+    }
 }
 
 struct Solution;
@@ -44,17 +61,14 @@ mod tests {
     use super::Solution;
     #[test]
     fn test_max_coins() {
-        assert_eq!(
-            Solution::max_coins(vec![2,3]),
-            9
-        );
-        assert_eq!(
-            Solution::max_coins(vec![2,2,2]),
-            14
-        );
-        assert_eq!(
-            Solution::max_coins(vec![3,1,5,8]),
-            167
-        );
+        let test_cases = vec![
+            vec![2,3],
+            vec![2,2,2],
+            vec![3,1,5,8],
+            vec![5,6,7,8,3,2,5,4,7,9,1,2,3,54,6,8,4,6,5,2,1,3,4,5,6,9,8,7,5,3,6],
+        ];
+        for nums in test_cases {
+            assert_eq!(Solution::fast_dp(nums.clone()), Solution::max_coins(nums.clone()), "nums: {:?}", nums);
+        }
     }
 }
