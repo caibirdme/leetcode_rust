@@ -1,4 +1,4 @@
-use std::cmp::Ordering;
+use std::cmp::{Ordering, min, max};
 
 impl Solution {
     pub fn max_number_dfs(nums1: Vec<i32>, nums2: Vec<i32>, k: i32) -> Vec<i32> {
@@ -192,6 +192,114 @@ impl Solution {
         }
         ans
     }
+
+    pub fn max_number_dp(nums1: Vec<i32>, nums2: Vec<i32>, k: i32) -> Vec<i32> {
+        let n = nums1.len();
+        let m = nums2.len();
+        let uk = k as usize;
+        let up = Self::pick_from(&nums1, uk);
+        let down = Self::pick_from(&nums2, uk);
+        let mut ans = vec![0; uk];
+        let mut cur = Vec::with_capacity(uk);
+        let mut p1 = vec![];
+        let mut p2 = vec![];
+        let h1 = Self::get_count_map(&nums1);
+        let h2 = Self::get_count_map(&nums2);
+        for i in 0..=min(uk, nums1.len()) {
+            let j = uk-i;
+            if j > nums2.len() {
+                continue;
+            }
+            Self::get_from(&up, &h1,i, &mut p1);
+            Self::get_from(&down, &h2, j, &mut p2);
+            Self::merge_two_slice(&p1, &p2, &mut cur);
+            if Self::cmp(&cur, &ans) {
+                ans = cur.clone();
+            }
+        }
+        ans
+    }
+    fn get_count_map(a: &[i32]) -> Vec<Vec<usize>> {
+        let mut h = vec![vec![]; 10];
+        for (i,&v) in a.iter().enumerate() {
+            h[v as usize].push(i);
+        }
+        h
+    }
+    fn cmp(a: &[i32], b: &[i32]) -> bool {
+        for (&x,&y) in a.iter().zip(b) {
+            if x == y {
+                continue;
+            }
+            return x > y;
+        }
+        a.len() > b.len()
+    }
+    fn get_from(arr: &Vec<Vec<i32>>, mp: &Vec<Vec<usize>>, k: usize, q: &mut Vec<i32>) {
+        q.clear();
+        if k == 0 {
+            return;
+        }
+        let mut i = 0;
+        let mut rk = k;
+        let mut pos = [0; 10];
+        while q.len() < k {
+            let c = arr[rk][i];
+            q.push(c);
+            let uc = c as usize;
+            let record = &mp[uc];
+            while record[pos[uc]] < i {
+                pos[uc]+=1;
+            }
+            i = record[pos[uc]]+1;
+            pos[uc]+=1;
+            rk -= 1;
+        }
+    }
+    fn merge_two_slice(up: &Vec<i32>, down: &Vec<i32>, q: &mut Vec<i32>) {
+        let n = up.len();
+        let m = down.len();
+        q.clear();
+        let mut i = 0;
+        let mut j = 0;
+        while i < n && j < m {
+            if up[i] > down[j] {
+                q.push(up[i]);
+                i+=1;
+            } else if up[i] < down[j] {
+                q.push(down[j]);
+                j+=1;
+            } else if Self::cmp(&up[i..], &down[j..]) {
+                q.push(up[i]);
+                i+=1;
+            } else {
+                q.push(down[j]);
+                j+=1;
+            }
+        }
+        while i < n {
+            q.push(up[i]);
+            i+=1;
+        }
+        while j<m {
+            q.push(down[j]);
+            j+=1;
+        }
+    }
+    fn pick_from(nums: &[i32], k: usize) -> Vec<Vec<i32>> {
+        let n = nums.len();
+        if n == 0 {
+            return vec![];
+        }
+        let mut f = vec![vec![0; n+1]; min(n,k)+1];
+        for i in 1..=min(k, n) {
+            f[i][n-i] = nums[n-i];
+            for j in (0..n-i).rev() {
+                f[i][j] = max(f[i][j+1], nums[j]);
+            }
+        }
+        f
+    }
 }
 
 
@@ -339,6 +447,34 @@ mod tests {
         for (nums1, nums2, k, expect) in test_cases {
             let actual = Solution::max_number(nums1, nums2, k);
             assert_eq!(actual, expect);
+        }
+    }
+    #[test]
+    fn test_max_number_dp() {
+        let test_cases = vec![
+            (
+                vec![3,9,1,0,0,5,6,3,7,3,1,6,1,9,5,4,3,6,4,0,8,8,2,8],
+                vec![1,8,7,9,7,8,0,1,4,7,5,6,9,9,8,7,1,1,4,2,5,5,0,0,8,0,6,5,4,1,2,3,3],
+                57,
+                vec![3,9,1,8,7,9,7,8,1,0,1,4,7,5,6,9,9,8,7,1,1,4,2,5,5,0,0,8,0,6,5,4,1,2,3,3,0,0,5,6,3,7,3,1,6,1,9,5,4,3,6,4,0,8,8,2,8],
+            ),
+            (
+                vec![5,0,2,1,0,1,0,3,9,1,2,8,0,9,8,1,4,7,3],
+                vec![7,6,7,1,0,1,0,5,6,0,5,0],
+                31,
+                vec![7,6,7,5,1,0,2,1,0,1,0,5,6,0,5,0,1,0,3,9,1,2,8,0,9,8,1,4,7,3,0],
+            ),
+            (vec![6,7], vec![6,0,4], 5, vec![6,7,6,0,4]),
+            (vec![3,1],vec![1,4,2], 4, vec![4,3,2,1]),
+            (vec![3,6,4], vec![9,1,5], 4, vec![9,6,5,4]),
+            (vec![3,1],vec![4,2], 4, vec![4,3,2,1]),
+            (vec![3, 4, 6, 5], vec![9, 1, 2, 5, 8, 3], 5, vec![9, 8, 6, 5, 3]),
+            (vec![3,4,5], vec![9,1], 3, vec![9,5,1]),
+            (vec![3,9],vec![8,9],3, vec![9,8,9]),
+        ];
+        for (nums1, nums2, k, expect) in test_cases {
+            let actual = Solution::max_number_dp(nums1.clone(), nums2.clone(), k);
+            assert_eq!(actual, expect, "s1: {:?}, s2: {:?}, k:{}", nums1,nums2,k);
         }
     }
 }
