@@ -282,6 +282,7 @@ mod prob_5281;
 mod prob_5282;
 mod prob_5313;
 mod prob_5314;
+mod prob_5334;
 
 #[cfg(test)]
 mod tests {
