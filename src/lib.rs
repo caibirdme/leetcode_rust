@@ -57,6 +57,7 @@ mod prob_91;
 mod prob_94;
 mod prob_101;
 mod prob_102;
+mod prob_105;
 mod prob_106;
 mod prob_107;
 mod prob_109;
@@ -77,6 +78,7 @@ mod prob_174;
 mod prob_188;
 mod prob_214;
 mod prob_220;
+mod prob_222;
 mod prob_230;
 mod prob_232;
 mod prob_241;
@@ -235,6 +237,8 @@ mod prob_467;
 mod prob_474;
 mod prob_486;
 mod prob_494;
+mod prob_501;
+mod prob_508;
 mod prob_516;
 mod prob_517;
 mod prob_538;
@@ -290,6 +294,7 @@ mod prob_5282;
 mod prob_5313;
 mod prob_5314;
 mod prob_5334;
+mod sword_offer;
 
 #[cfg(test)]
 mod tests {
