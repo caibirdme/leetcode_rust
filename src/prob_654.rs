@@ -114,7 +114,7 @@ impl Solution {
         let lch = Self::build(nums, smt, l, idx-1);
         let rch = Self::build(nums, smt, idx+1, r);
         Some(Rc::new(RefCell::new(TreeNode{
-            val: arr[idx-1],
+            val: nums[idx-1],
             left: lch,
             right: rch,
         })))
