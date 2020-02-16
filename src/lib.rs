@@ -23,6 +23,7 @@ mod palindrome_linkedlist;
 mod prob_4;
 mod prob_5;
 mod prob_16;
+mod prob_18;
 mod prob_21;
 mod prob_29;
 mod prob_30;
@@ -253,6 +254,7 @@ mod prob_617;
 mod prob_621;
 mod prob_623;
 mod prob_637;
+mod prob_640;
 mod prob_647;
 mod prob_648;
 mod prob_652;
@@ -303,6 +305,10 @@ mod prob_5282;
 mod prob_5313;
 mod prob_5314;
 mod prob_5334;
+mod prob_5340;
+mod prob_5341;
+mod prob_5342;
+mod prob_5343;
 mod sword_offer;
 
 #[cfg(test)]
