@@ -5,3 +5,7 @@ mod p26;
 mod p33;
 mod p38;
 mod p51;
+mod p56;
+mod p56_2;
+mod p59_2;
+mod p64;
