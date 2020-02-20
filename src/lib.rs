@@ -317,6 +317,7 @@ mod prob_5341;
 mod prob_5342;
 mod prob_5343;
 mod sword_offer;
+mod crack_code_interview;
 
 #[cfg(test)]
 mod tests {

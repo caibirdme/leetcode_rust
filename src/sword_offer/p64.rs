@@ -4,7 +4,7 @@ impl Solution {
         Self::add(n, &mut ans);
         ans
     }
-    fn add(i: i32, ans: &mut ans) -> bool {
+    fn add(i: i32, ans: &mut i32) -> bool {
         *ans += i;
         return i>0 && Self::add(i-1, ans)
     }
