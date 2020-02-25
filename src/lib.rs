@@ -54,6 +54,7 @@ mod prob_75;
 mod prob_78;
 mod prob_79;
 mod prob_81;
+mod prob_84;
 mod prob_86;
 mod prob_87;
 mod prob_89;
