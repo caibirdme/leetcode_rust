@@ -1,28 +1,28 @@
-use std::collections::{BinaryHeap,HashSet};
-use std::cmp::Reverse;
+
 impl Solution {
-    pub fn nth_ugly_number(mut n: i32) -> i32 {
-        let mut i:i64 = 0;
-        let mut heap = BinaryHeap::new();
-        let mut inHeap: HashSet<i64>= HashSet::new();
-        heap.push(Reverse(1));
-        let candidate:[i64; 3] = [2,3,5];
-        loop {
-            let t = heap.pop().unwrap();
-            let q = t.0;
-            for &i in candidate.iter() {
-                let p = q*i;
-                if !inHeap.contains(&p) {
-                    heap.push(Reverse(p));
-                    inHeap.insert(p);
-                }
-            }
-            n-=1;
-            if n == 0 {
-                return t.0 as i32;
-            }
+    pub fn nth_ugly_number(n: i32) -> i32 {
+        if n == 1 {
+            return 1;
         }
-        unreachable!();
+        let mut nums = vec![1];
+        let (mut p2, mut p3, mut p5) = (0,0,0);
+        for _ in 1..n {
+            let v2 = nums[p2]*2;
+            let v3 = nums[p3]*3;
+            let v5 = nums[p5]*5;
+            let m = v2.min(v3.min(v5));
+            if m == v2 {
+                p2+=1;
+            }
+            if m == v3 {
+                p3 += 1;
+            }
+            if m == v5 {
+                p5 += 1;
+            }
+            nums.push(m);
+        }
+        *nums.last().unwrap()
     }
 }
 
