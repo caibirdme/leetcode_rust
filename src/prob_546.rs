@@ -4,7 +4,6 @@ use std::ops::Add;
 impl Solution {
     pub fn remove_boxes(boxes: Vec<i32>) -> i32 {
         let mut f = vec![vec![vec![0; 101]; 101]; 101];
-        (1..=n).into_iter().fold(0, |pre, v|)
         Self::search(&boxes, 0, boxes.len()-1, 0, &mut f)
     }
     fn search(boxes: &Vec<i32>, l: usize, r: usize, k: usize, f: &mut Vec<Vec<Vec<i32>>>) -> i32 {

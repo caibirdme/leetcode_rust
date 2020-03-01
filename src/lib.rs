@@ -334,6 +334,9 @@ mod prob_5323;
 mod prob_5324;
 mod prob_5325;
 mod prob_5326;
+mod prob_5345;
+mod prob_5346;
+mod prob_5437;
 mod sword_offer;
 mod crack_code_interview;
 
