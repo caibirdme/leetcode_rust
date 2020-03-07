@@ -34,6 +34,36 @@ impl Solution {
         Self::dfs(word, cur, ans, pos+1, num+1);
         cur.truncate(origin_len);
     }
+    pub fn generate_abbreviations_bits(word: String) -> Vec<String> {
+        let n = word.len();
+        if n == 0 {
+            return vec!["".to_string()];
+        }
+        let bs = word.as_bytes();
+        let mut ans = vec![];
+        let mut tmp = vec![];
+        for i in 0..(1<<n) {
+            let mut j = 0;
+            tmp.clear();
+            while j < n {
+                let mut c = 0;
+                while j < n && i&(1<<j) > 0 {
+                    j+=1;
+                    c += 1;
+                }
+                if c == 0 {
+                    tmp.push(bs[j]);
+                    j+=1;
+                } else {
+                    for &u in c.to_string().as_bytes() {
+                        tmp.push(u);
+                    }
+                }
+            }
+            ans.push(unsafe {std::str::from_utf8_unchecked(&tmp).to_string()});
+        }
+        ans
+    }
 }
 
 struct Solution;
@@ -51,7 +81,7 @@ mod tests {
             ("", vec![""]),
         ];
         for (word, mut expect) in test_cases {
-            let mut actual = Solution::generate_abbreviations(word.to_string());
+            let mut actual = Solution::generate_abbreviations_bits(word.to_string());
             actual.sort();
             expect.sort();
             assert_eq!(actual, expect, "word: {}", word);
