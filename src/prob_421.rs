@@ -18,18 +18,12 @@ impl Solution {
             for &v in nums.iter() {
                 set.insert(v&temp);
             }
-            let pre_ans = ans;
-            ans = ans | (1<<i);
-            let mut ok = false;
+            let w = ans | (1<<i);
             for &v in set.iter() {
-                let t = ans ^ v;
-                if t != v && set.contains(&t) {
-                    ok = true;
+                if set.contains(&(w^v)) {
+                    ans = w;
                     break;
                 }
-            }
-            if !ok {
-                ans = pre_ans;
             }
         }
         ans
