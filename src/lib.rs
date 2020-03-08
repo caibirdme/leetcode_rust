@@ -290,6 +290,7 @@ mod prob_718;
 mod prob_732;
 mod prob_739;
 mod prob_751;
+mod prob_756;
 mod prob_765;
 mod prob_785;
 mod prob_802;
