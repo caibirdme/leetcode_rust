@@ -21,53 +21,69 @@ use std::cell::RefCell;
 
 impl Solution {
     pub fn closest_k_values(root: Option<Rc<RefCell<TreeNode>>>, target: f64, k: i32) -> Vec<i32> {
-        let mut less = vec![];
-        let mut larger = vec![];
-        Self::larger_than_reverse(&root, target, &mut larger);
-        Self::less_equal(&root, target, &mut less);
+        if root.is_none() {
+            return vec![];
+        }
         let mut ans = vec![];
-        while ans.len() < k as usize {
-            if !less.is_empty() && !larger.is_empty() {
-                let (&l,&r) = (less.last().unwrap(), larger.last().unwrap());
-                if (l as f64-target).abs() < (r as f64 - target).abs() {
-                    ans.push(l);
-                    less.pop();
-                } else {
-                    ans.push(r);
-                    larger.pop();
+        let mut q = vec![(Rc::clone(root.as_ref().unwrap()), 0)];
+        let mut l = 0;
+        let mut uk = k as usize;
+        while let Some((node,status)) = q.pop() {
+            if status == 1 {
+                let val = node.borrow().val;
+                ans.push(val);
+                if ans.len() > uk {
+                    if target - ans[l] as f64 > val as f64-target {
+                        l += 1;
+                    } else {
+                        ans.pop();
+                        return Vec::from(&ans[l..]);
+                    }
                 }
-            }else if !less.is_empty() {
-                ans.push(less.pop().unwrap());
+                if node.borrow().right.is_some() {
+                    q.push((Rc::clone(node.borrow().right.as_ref().unwrap()), 0));
+                }
             } else {
-                ans.push(larger.pop().unwrap());
+                q.push((Rc::clone(&node), 1));
+                if node.borrow().left.is_some() {
+                    q.push((Rc::clone(node.borrow().left.as_ref().unwrap()), 0));
+                }
             }
         }
-        ans
-    }
-    fn larger_than_reverse(root: &Option<Rc<RefCell<TreeNode>>>, target: f64, q: &mut Vec<i32>) {
-        if root.is_none() {
-            return;
-        }
-        let cur = root.as_ref().unwrap().borrow();
-        Self::larger_than_reverse(&cur.right, target, q);
-        if cur.val as f64 <= target {
-            return;
-        }
-        q.push(cur.val);
-        Self::larger_than_reverse(&cur.left, target, q);
-    }
-    fn less_equal(root: &Option<Rc<RefCell<TreeNode>>>, target: f64, q: &mut Vec<i32>) {
-        if root.is_none() {
-            return;
-        }
-        let cur = root.as_ref().unwrap().borrow();
-        Self::less_equal(&cur.left, target, q);
-        if cur.val as f64 > target {
-            return;
-        }
-        q.push(cur.val);
-        Self::less_equal(&cur.right, target, q);
+        Vec::from(&ans[l..])
     }
 }
 
 struct Solution;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_closest_k_values() {
+        let r = Some(Rc::new(RefCell::new(TreeNode{
+            val: 4,
+            left: Some(Rc::new(RefCell::new(TreeNode{
+                val: 2,
+                left: Some(Rc::new(RefCell::new(TreeNode{
+                    val: 1,
+                    left: None,
+                    right: None,
+                }))),
+                right: Some(Rc::new(RefCell::new(TreeNode{
+                    val: 3,
+                    left: None,
+                    right: None,
+                }))),
+            }))),
+            right: Some(Rc::new(RefCell::new(TreeNode{
+                val: 5,
+                left:None,
+                right: None,
+            }))),
+        })));
+        assert_eq!(Solution::closest_k_values(r.clone(), 3.714286, 3), vec![3,4,5]);
+        assert_eq!(Solution::closest_k_values(r.clone(), 3.714286, 2), vec![3,4]);
+    }
+}

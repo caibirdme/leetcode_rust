@@ -285,6 +285,7 @@ mod prob_647;
 mod prob_648;
 mod prob_652;
 mod prob_654;
+mod prob_658;
 mod prob_683;
 mod prob_684;
 mod prob_685;
@@ -366,6 +367,7 @@ mod prob_5437;
 mod sword_offer;
 mod crack_code_interview;
 mod sort;
+mod trans_tree;
 #[cfg(test)]
 mod tests {
     #[test]
