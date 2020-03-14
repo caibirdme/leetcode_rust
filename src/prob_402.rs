@@ -6,12 +6,33 @@ impl Solution {
         if k >= num.len() as i32 {
             return "0".to_string()
         }
-        let ans = Self::dfs(num.as_bytes(), k as usize).trim_start_matches('0').to_string();
+        let ans = Self::process_by_stack(num.as_bytes(), k as usize).trim_start_matches('0').to_string();
         if ans.is_empty() {
             "0".to_string()
         } else {
             ans
         }
+    }
+    fn process_by_stack(s: &[u8], mut k: usize) -> String {
+        let n = s.len();
+        let mut q = vec![s[0]];
+        for i in 1..n {
+            let c = s[i];
+            if k == 0 {
+                q.push(c);
+                continue;
+            }
+            while let Some(&top) = q.last() {
+                if c < top && k > 0{
+                    q.pop();
+                    k-=1;
+                } else {
+                    break;
+                }
+            }
+            q.push(c);
+        }
+        unsafe {std::str::from_utf8_unchecked(&q[..q.len()-k]).to_string()}
     }
     fn dfs(s: &[u8], k: usize) -> String {
         if k == 0 {
@@ -51,7 +72,7 @@ mod tests {
             ("10200", 1, "200"),
         ];
         for (num, n, expect) in test_cases {
-            assert_eq!(expect, Solution::remove_kdigits(num.to_string(), n), "num: {}, n: {}",num,n);
+            assert_eq!(Solution::remove_kdigits(num.to_string(), n), expect, "num: {}, n: {}",num,n);
         }
     }
 }

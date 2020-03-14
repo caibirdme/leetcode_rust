@@ -4,22 +4,31 @@ impl Solution {
         if n == 0 {
             return true;
         }
-        let mut ok = true;
         let mut s: Vec<&str> = preorder.as_str().split(',').collect();
-        Self::visit(&mut s, &mut ok);
-        ok && s.len() == 0
-    }
-    fn visit(s: &mut Vec<&str>, ok: &mut bool) {
-        if s.len() == 0 {
-            *ok = false;
-            return;
+        if s[0] == "#" {
+            return s.len() == 1;
         }
-        let cur = s[0];
-        s.remove(0);
-        if cur != "#" {
-            Self::visit(s, ok);
-            Self::visit(s, ok);
+
+        // is_backtrace
+        let mut q = vec![false];
+        let mut i = 0;
+        while let Some(is_back) = q.pop() {
+            i+=1;
+            if i >= s.len() {
+                return false;
+            }
+            if is_back {
+                if s[i] != "#" {
+                    q.push(false);
+                }
+            } else {
+                q.push(true);
+                if s[i] != "#" {
+                    q.push(false);
+                }
+            }
         }
+        i+1 == s.len()
     }
 }
 
@@ -31,8 +40,9 @@ mod tests {
     #[test]
     fn test_is_valid_serialization() {
         let test_cases = vec![
-            ("9,3,4,#,#,1,#,#,2,#,6,#,#", true),
+            ("#", true),
             ("1,#", false),
+            ("9,3,4,#,#,1,#,#,2,#,6,#,#", true),
             ("1", false),
             ("1123,#,#", true),
             ("1123,#,123123,#,#", true),
@@ -41,7 +51,9 @@ mod tests {
         for (s,ok) in test_cases {
             assert_eq!(
                 Solution::is_valid_serialization(s.to_string()),
-                ok
+                ok,
+                "s: {}",
+                s
             );
         }
     }

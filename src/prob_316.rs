@@ -1,3 +1,9 @@
+macro_rules! idx {
+    ($c: expr) => {
+        ($c-b'a') as usize
+    };
+}
+
 impl Solution {
     pub fn remove_duplicate_letters_dfs(s: String) -> String {
         let mut count = [0; 26];
@@ -56,45 +62,31 @@ impl Solution {
 
     pub fn remove_duplicate_letters(s: String) -> String {
         let mut count = [0; 26];
-        for &c in s.as_bytes() {
-            count[(c-b'a') as usize] += 1;
+        let bs = s.as_bytes();
+        for &c in bs {
+            count[idx!(c)] += 1;
         }
-        let mut stack = vec![];
+        let mut stack = vec![bs[0]];
         let mut used = [false; 26];
-        for &c in s.as_bytes() {
-            let idx = (c-b'a') as usize;
-            if stack.is_empty() {
-                stack.push(c);
-                used[idx] = true;
-                count[idx] -= 1;
-                continue;
-            }
-            if used[idx] {
-                count[idx]-=1;
-                continue;
-            }
-            loop {
-                let top = *stack.last().unwrap();
-                let top_idx = (top-b'a') as usize;
-                if c < top && count[top_idx] >= 1 {
+        used[idx!(bs[0])] = true;
+        count[idx!(bs[0])] -= 1;
+        for i in 1..bs.len() {
+            let c = bs[i];
+            let pos = idx!(c);
+            count[pos] -= 1;
+            if used[pos] {continue;}
+            while let Some(&top) = stack.last() {
+                if c < top && count[idx!(top)] > 0 {
                     stack.pop();
-                    used[top_idx] = false;
+                    used[idx!(top)] = false;
                 } else {
-                    break;
-                }
-                if stack.is_empty() {
                     break;
                 }
             }
             stack.push(c);
-            count[idx] -= 1;
-            used[idx] = true;
+            used[pos] = true;
         }
-        let mut ans = String::with_capacity(stack.len());
-        for c in stack {
-            ans.push(c as char);
-        }
-        ans
+        unsafe {std::str::from_utf8_unchecked(&stack).to_string()}
     }
 }
 

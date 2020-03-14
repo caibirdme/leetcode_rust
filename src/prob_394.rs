@@ -1,5 +1,63 @@
 impl Solution {
     pub fn decode_string(s: String) -> String {
+        let mut ans = vec![];
+        let mut repeat = vec![];
+        let mut q = vec![];
+        let mut i = 0;
+        let bs = s.as_bytes();
+        while i < bs.len() {
+            match bs[i] {
+                b'0'...b'9'=> {
+                    let mut acc = 0;
+                    while i<bs.len() && bs[i]>=b'0' && bs[i]<=b'9' {
+                        acc = acc*10 + (bs[i]-b'0') as i32;
+                        i+=1;
+                    }
+                    repeat.push(acc);
+                },
+                b'[' => {
+                    q.push(b'[');
+                    i+=1;
+                },
+                b']' => {
+                    i+=1;
+                    let mut tmp = vec![];
+                    while let Some(c) = q.pop() {
+                        if c == b'[' {break;}
+                        tmp.push(c);
+                    }
+                    let mut l = 0;
+                    let mut r = tmp.len()-1;
+                    while l < r {
+                        tmp.swap(l,r);
+                        l+=1;
+                        r-=1;
+                    }
+                    let repeat_times = repeat.pop().unwrap();
+                    for _ in 0..repeat_times {
+                        for &c in &tmp {
+                            if repeat.is_empty() {
+                                ans.push(c);
+                            } else {
+                                q.push(c);
+                            }
+                        }
+                    }
+                },
+                _ => {
+                    if repeat.is_empty() {
+                       ans.push(bs[i]);
+                    } else {
+                        q.push(bs[i]);
+                    }
+                    i+=1;
+                },
+            }
+        }
+        unsafe {std::str::from_utf8_unchecked(&ans).to_string()}
+    }
+
+    pub fn decode_string_dfs(s: String) -> String {
         if s.is_empty() {
             return s;
         }
