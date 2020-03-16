@@ -1,77 +1,41 @@
 impl Solution {
     pub fn add_operators(num: String, target: i32) -> Vec<String> {
-        let ts = target.to_string();
-        match Self::calc(num.as_bytes(), 0,0,b'+',target as i64, true) {
-            None => vec![],
-            Some(val) => {
-                val.iter().map(|s| s[1..].to_string()).collect()
-            },
-        }
+        let mut res = vec![];
+        let mut ans = vec![];
+        Self::dfs(num.as_bytes(), 0, 0, 0, target as i64, &mut res, &mut ans);
+        ans
     }
+    fn dfs(s: &[u8], pre: i64, cur: i64, val:i64, target: i64, res: &mut Vec<String>, ans: &mut Vec<String>) {
+        if cur > std::i32::MAX as i64 {
+            return;
+        }
+        if s.is_empty() {
+            if val == target && cur == 0{
+                ans.push(res[1..].join(""));
+            }
+            return;
+        }
+        let current = cur * 10 + (s[0]-b'0') as i64;
+        if current > 0 {
+            Self::dfs(&s[1..], pre, current, val, target, res, ans);
+        }
+        res.push("+".to_string());
+        res.push(current.to_string());
+        Self::dfs(&s[1..], current, 0, val+current, target, res, ans);
+        res.pop();
+        res.pop();
+        if res.len() > 0 {
+            res.push("-".to_string());
+            res.push(current.to_string());
+            Self::dfs(&s[1..], -current, 0, val-current, target, res, ans);
+            res.pop();
+            res.pop();
 
-    fn calc(num: &[u8], cur: i64, pre: i64, pre_op: u8, t: i64, flag: bool) -> Option<Vec<String>> {
-        use std::str::from_utf8;
-        let n = num.len();
-        if n == 0 {
-            if cur == t {
-                return Some(vec!["".to_string()]);
-            }
-            return None;
-        }
-        let mut acc = 0;
-        let mut output = vec![];
-        for i in 0..n {
-            let c = num[i];
-            acc = acc*10 + (c-b'0') as i64;
-            if let Some(res) = Self::calc(&num[i+1..], cur+acc, acc, b'+',t, false) {
-                for s in res {
-                    output.push( "+".to_string() + from_utf8(&num[..i+1]).unwrap() + s.as_str());
-                }
-            }
-            if !flag {
-                if let Some(res) = Self::calc(&num[i+1..],cur-acc, acc, b'-',t, false) {
-                    for s in res {
-                        output.push("-".to_string() + from_utf8(&num[..i+1]).unwrap() + s.as_str());
-                    }
-                }
-                match pre_op {
-                    b'+' => {
-                        if let Some(q) = pre.checked_mul(acc) {
-                            if let Some(nc_1) = cur.checked_sub(pre) {
-                                if let Some(nc) = nc_1.checked_add(q) {
-                                    if let Some(res) = Self::calc(&num[i + 1..], cur - pre + q, q, pre_op, t, false) {
-                                        for s in res {
-                                            output.push("*".to_string() + from_utf8(&num[..i + 1]).unwrap() + s.as_str());
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    b'-' => {
-                        if let Some(q) = pre.checked_mul(acc) {
-                            if let Some(nc_1) = cur.checked_add(pre) {
-                                if let Some(nc) = nc_1.checked_sub(q) {
-                                    if let Some(res) = Self::calc(&num[i + 1..], nc, q, pre_op, t, false) {
-                                        for s in res {
-                                            output.push("*".to_string() + from_utf8(&num[..i + 1]).unwrap() + s.as_str());
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    _ => unreachable!(),
-                }
-            }
-            if acc == 0 {
-                break;
-            }
-        }
-        if output.is_empty() {
-            None
-        } else {
-            Some(output)
+            res.push("*".to_string());
+            res.push(current.to_string());
+            Self::dfs(&s[1..], pre*current, 0, val-pre+pre*current, target, res, ans);
+            res.pop();
+            res.pop();
         }
     }
 }
