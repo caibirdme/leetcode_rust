@@ -23,16 +23,14 @@ impl Solution {
         let mut idx = 0;
         for i in 1..m {
             let nidx = idx ^ 1;
-            if let Some(cur) = pos.get(&ks[i]) {
+            for j in 0..n {
+                f[idx][j] = MAX;
+                if rs[j] != ks[i] {
+                    continue;
+                }
                 if let Some(pre) = pos.get(&ks[i-1]) {
-                    for j in 0..n {
-                        f[idx][j] = MAX;
-                        if rs[j] != ks[i] {
-                            continue;
-                        }
-                        for &k in pre {
-                            f[idx][j] = f[idx][j].min(f[nidx][k] + Self::calc(j,k,n) + 1);
-                        }
+                    for &k in pre {
+                        f[idx][j] = f[idx][j].min(f[nidx][k] + Self::calc(j, k, n) + 1);
                     }
                 }
             }

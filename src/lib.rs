@@ -306,6 +306,7 @@ mod prob_802;
 mod prob_839;
 mod prob_841;
 mod prob_887;
+mod prob_932;
 mod prob_946;
 mod prob_974;
 mod prob_995;
