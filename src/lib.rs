@@ -80,6 +80,8 @@ mod prob_125;
 mod prob_127;
 mod prob_131;
 mod prob_132;
+mod prob_134;
+mod prob_135;
 mod prob_144;
 mod prob_149;
 mod prob_159;
