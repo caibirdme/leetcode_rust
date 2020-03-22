@@ -4,24 +4,22 @@ impl Solution {
         if n == 1 {
             return false;
         }
-        let bytes = s.as_bytes();
-        for i in 0..n/2 {
-            let length = i-0+1;
-            if n%length != 0 {
-                continue;
-            }
-            let mut ok = true;
-            for j in i+1..n {
-                if bytes[j] != bytes[j-length] {
-                    ok = false;
-                    break;
-                }
-            }
-            if ok {
-                return true;
+        let p = s.as_bytes();
+        let mut next = vec![-1; n];
+        let mut i = 0;
+        let mut j = -1;
+        while i+1 < n {
+            if p[i as usize+1] == p[(j+1) as usize] {
+                i+=1;
+                j+=1;
+                next[i as usize] = j;
+            } else if j == -1 {
+                i += 1;
+            } else {
+                j = next[j as usize];
             }
         }
-        false
+        next[n-1] >= 0 && n as i32 % (n as i32-next[n-1]-1) == 0
     }
 }
 
@@ -33,6 +31,7 @@ mod tests {
     #[test]
     fn test_repeated_substring_pattern() {
         let test_cases = vec![
+            ("aa", true),
             ("ababcababcababdc", false),
             ("ababcababc", true),
             ("ababccab", false),
