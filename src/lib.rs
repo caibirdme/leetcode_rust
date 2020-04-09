@@ -310,6 +310,7 @@ mod prob_751;
 mod prob_753;
 mod prob_756;
 mod prob_765;
+mod prob_766;
 mod prob_785;
 mod prob_802;
 mod prob_809;
