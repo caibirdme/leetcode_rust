@@ -407,6 +407,8 @@ mod prob_5364;
 mod prob_5366;
 mod prob_5367;
 mod prob_5370;
+mod prob_5374;
+mod prob_5375;
 mod prob_5377;
 mod prob_5379;
 mod prob_5380;
