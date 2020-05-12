@@ -7,43 +7,46 @@ impl Solution {
         }
         let word_len = words[0].len();
         let target_len = words.len();
-        if s.len() < target_len*word_len {
+        if s.len() < target_len * word_len {
             return vec![];
         }
-        let mut words_map = HashMap::new();
-        for word in words.iter() {
-            *words_map.entry(word.clone()).or_insert(0) += 1;
-        }
-        let s_len = s.len();
-        let last_idx = s_len-target_len*word_len;
-        let bytes = s.as_bytes();
         let mut ans = vec![];
-        let mut current = HashMap::new();
-        let mut count = 0;
-        for i in 0..=last_idx {
-            let mut j = i;
-            let mut success = true;
-            current.clear();
-            for _ in 0..target_len {
-                let next_j = j+word_len;
-                let cs = unsafe {std::str::from_utf8_unchecked(&bytes[j..next_j]).to_string()};
-                j = next_j;
-                if !words_map.contains_key(&cs) {
-                    success = false;
-                    break;
-                }
-                let p = current.entry(cs.clone()).or_insert(0);
-                *p += 1;
-                if *p > *words_map.get(&cs).unwrap() {
-                    success = false;
-                    break;
-                }
-            }
-            if success && current == words_map {
-                ans.push(i as i32);
-            }
+        let mut count = HashMap::new();
+        for w in &words {
+            *count.entry(w.as_str()).or_insert(0) += 1;
+        }
+        let sb = s.as_bytes();
+        for i in 0..word_len {
+            Self::find(&sb[i..], i, word_len, &count, target_len, &mut ans);
         }
         ans
+    }
+    fn find(s: &[u8], idx: usize, len: usize, words: &HashMap<&str, i32>, total: usize, ans: &mut Vec<i32>) {
+        let mut i = 0;
+        let mut j = 0;
+        let mut cur = HashMap::new();
+        let mut acc = 0;
+        while j+len <= s.len() {
+            let t = unsafe {std::str::from_utf8_unchecked(&s[j..j+len])};
+            j += len;
+            if !words.contains_key(t) {
+                i = j;
+                cur.clear();
+                acc = 0;
+                continue;
+            }
+            *cur.entry(t).or_insert(0) += 1;
+            acc += 1;
+            while *cur.get(&t).unwrap() > *words.get(t).unwrap() {
+                let p = unsafe {std::str::from_utf8_unchecked(&s[i..i+len])};
+                i += len;
+                *cur.get_mut(&p).unwrap() -= 1;
+                acc -= 1;
+            }
+            if acc == total {
+                ans.push((i+idx) as i32);
+            }
+        }
     }
 }
 
@@ -56,9 +59,9 @@ mod tests {
     #[test]
     fn test_find_substring() {
         let test_cases = vec![
+            ("barfoothefoobarman", vec!["foo","bar"], vec![0,9]),
             ("a", vec!["a", "a"], vec![]),
             ("lingmindraboofooowingdingbarrwingmonkeypoundcake", vec!["fooo","barr","wing","ding","wing"], vec![13]),
-            ("barfoothefoobarman", vec!["foo","bar"], vec![0,9]),
             ("wordgoodgoodgoodbestword", vec!["word","good","best","word"], vec![]),
             ("wordgoodwordgoodbestwordword", vec!["word","good","best","word"], vec![8, 12]),
 
