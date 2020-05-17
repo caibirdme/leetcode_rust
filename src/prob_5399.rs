@@ -12,7 +12,7 @@ impl Solution {
             }
         }
         let mut f = vec![-1; m+1];
-        let mut select = HashMap::new();
+        let mut select = vec![0; m+1];
         f[0] = 0;
         for i in 0..9 {
             let w = cost[i];
@@ -26,9 +26,9 @@ impl Solution {
                     let nval = f[pos]+1;
                     if nval > f[uv] {
                         f[uv] = nval;
-                        select.insert(v, vec![i]);
+                        select[uv] = i;
                     } else if nval == f[uv] {
-                        select.entry(v).or_insert(vec![]).push(i);
+                        select[uv] = i;
                     }
                 }
             }
@@ -39,8 +39,7 @@ impl Solution {
         let mut w = target;
         let mut ans = vec![];
         while w > 0 {
-            let arr = select.get(&w).unwrap();
-            let mut t = *arr.iter().max().unwrap();
+            let t = select[w as usize];
             ans.push((t as i32+1) as u8 + b'0');
             w -= cost[t];
         }
