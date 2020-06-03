@@ -434,6 +434,7 @@ mod sort;
 mod kmp;
 mod trans_tree;
 mod night_match_27;
+mod match_191;
 #[cfg(test)]
 mod tests {
     #[test]
