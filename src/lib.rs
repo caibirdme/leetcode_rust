@@ -440,6 +440,7 @@ mod night_match_27;
 mod night_match_28;
 mod match_191;
 mod match_192;
+mod match_194;
 #[cfg(test)]
 mod tests {
     #[test]
